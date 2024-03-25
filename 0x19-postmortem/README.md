@@ -1,37 +1,34 @@
-Postmortem
-Upon the release of Holberton School's System Engineering & DevOps project 0x19, approximately 00:07 Pacific Standard Time (PST), an outage occurred on an isolated Ubuntu 14.04 container running an Apache web server. GET requests on the server led to 500 Internal Server Error's, when the expected response was an HTML file defining a simple Holberton WordPress site.
+# Postmortem: Web Stack Outage 🕵️‍♂️🔧💻
 
-Debugging Process
-Bug debugger Brennan (BDB... as in my actual initials... made that up on the spot, pretty good, huh?) encountered the issue upon opening the project and being, well, instructed to address it, roughly 19:20 PST. He promptly proceeded to undergo solving the problem.
+## Issue Summary:
+- **Duration:** The outage was like a surprise guest at a party, showing up uninvited on March 24, 2024, from 10:00 AM to 1:00 PM (UTC).
+- **Impact:** Our primary web application took an unexpected coffee break, leading to a 30% decrease in user engagement during the incident window.
 
-Checked running processes using ps aux. Two apache2 processes - root and www-data - were properly running.
+## Root Cause:
+The root cause of the chaos was a misconfiguration in the load balancer settings. It was like the traffic cop decided to take a nap, causing traffic jams in our web servers' neighborhood.
 
-Looked in the sites-available folder of the /etc/apache2/ directory. Determined that the web server was serving content located in /var/www/html/.
+## Timeline:
+- **9:58 AM:** The monitoring systems went berserk, yelling at us about the sudden drop in incoming requests.
+- **10:00 AM:** We put on our detective hats and started digging through application server logs and network traffic.
+- **10:30 AM:** Initially, we thought our database was throwing a tantrum, so we gave it a stern talking-to.
+- **11:00 AM:** After realizing the database was innocent, we turned our attention to the load balancer configurations.
+- **11:30 AM:** Ah-ha! We found the culprit - a mischievous misconfiguration! We promptly called for backup from the infrastructure team.
+- **12:00 PM:** With some swift adjustments to the load balancer settings, traffic resumed its smooth flow, and our servers sighed in relief.
+- **1:00 PM:** Service was back in action, and our users rejoiced as they once again surfed the web without a hitch.
 
-In one terminal, ran strace on the PID of the root Apache process. In another, curled the server. Expected great things... only to be disappointed. strace gave no useful information.
+## Root Cause and Resolution:
+The misconfigured load balancer was like a toddler playing with buttons, causing chaos in our web traffic distribution. To restore peace, we corrected the load balancer settings to evenly distribute the load across all application servers. We also promised the load balancer some extra supervision to keep it out of trouble in the future.
 
-Repeated step 3, except on the PID of the www-data process. Kept expectations lower this time... but was rewarded! strace revelead an -1 ENOENT (No such file or directory) error occurring upon an attempt to access the file /var/www/html/wp-includes/class-wp-locale.phpp.
+## Corrective and Preventative Measures:
+1. **Load Balancer Bootcamp:** Implement strict version control and peer reviews for load balancer configurations. We're also considering a "Traffic Jam Prevention 101" course.
+   - Task: Enforce version control for load balancer settings.
+   - Task: Establish a buddy system for load balancer configuration changes.
+2. **Traffic Control Tower:** Enhance monitoring systems with real-time traffic monitoring and automated alerts for load balancer changes. We might even hire a virtual traffic cop!
+   - Task: Set up real-time traffic monitoring on the load balancer.
+   - Task: Configure automated alerts for load balancer configuration changes.
+3. **Infrastructure Check-ups:** Schedule regular audits of web stack components to identify and fix potential troublemakers before they wreak havoc.
+   - Task: Conduct quarterly reviews of load balancer configurations.
+   - Task: Perform bi-annual stress tests on application servers and load balancers, complete with virtual traffic jams.
 
-Looked through files in the /var/www/html/ directory one-by-one, using Vim pattern matching to try and locate the erroneous .phpp file extension. Located it in the wp-settings.php file. (Line 137, require_once( ABSPATH . WPINC . '/class-wp-locale.php' );).
-
-Removed the trailing p from the line.
-
-Tested another curl on the server. 200 A-ok!
-
-Wrote a Puppet manifest to automate fixing of the error.
-
-Summation
-In short, a typo. Gotta love'em. In full, the WordPress app was encountering a critical error in wp-settings.php when tyring to load the file class-wp-locale.phpp. The correct file name, located in the wp-content directory of the application folder, was class-wp-locale.php.
-
-Patch involved a simple fix on the typo, removing the trailing p.
-
-Prevention
-This outage was not a web server error, but an application error. To prevent such outages moving forward, please keep the following in mind.
-
-Test! Test test test. Test the application before deploying. This error would have arisen and could have been addressed earlier had the app been tested.
-
-Status monitoring. Enable some uptime-monitoring service such as UptimeRobot to alert instantly upon outage of the website.
-
-Note that in response to this error, I wrote a Puppet manifest 0-strace_is_your_friend.pp to automate fixing of any such identitical errors should they occur in the future. The manifest replaces any phpp extensions in the file /var/www/html/wp-settings.php with php.
-
-But of course, it will never occur again, because we're programmers, and we never make errors! 😉
+## Conclusion:
+Though our web stack briefly went on strike, we emerged stronger and wiser from the experience. By implementing these measures, we're building a more resilient system that can weather any storm - even one caused by a mischievous load balancer! Let's keep the web surfing smooth and the servers happy. 🚀🌐🎉
