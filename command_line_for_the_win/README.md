@@ -30,7 +30,7 @@ I have successfully completed the task of uploading screenshots of completing th
    ls
    ```
 
-   ![Screenshot of Successful Transfer](![image](https://github.com/ranaitsan123/alx-system_engineering-devops/assets/95276621/272ed67e-bc90-418f-9739-44e6a2850df3)
+   ![Screenshot of Successful Transfer]([![image](https://github.com/ranaitsan123/alx-system_engineering-devops/assets/95276621/272ed67e-bc90-418f-9739-44e6a2850df3](https://github.com/ranaitsan123/alx-system_engineering-devops/blob/master/command_line_for_the_win/Capture%20d%E2%80%99%C3%A9cran%202024-04-28%20235944.png))
 )
 
 7. **Push to GitHub**: Following the successful transfer, I proceeded to push the screenshots to GitHub in line with the initial requirements.
