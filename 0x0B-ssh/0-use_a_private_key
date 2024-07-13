@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Connects to my alx ubuntu server.
 
-ssh -v ubuntu@54.83.139.223
+ssh -i ~/.ssh/school -o StrictHostKeyChecking=no ubuntu@54.83.139.223
