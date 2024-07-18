@@ -19,10 +19,3 @@ fi
 
 # Transfer the file using scp
 scp -o StrictHostKeyChecking=no -i "$SSH_KEY" "$FILE_PATH" "$SSH_USER@$SERVER_IP":~
-
-# Check if scp command was successful
-if [ $? -eq 0 ]; then
-    echo "File '$FILE_PATH' successfully transferred to $SSH_USER@$SERVER_IP:~/"
-else
-    echo "Error: Failed to transfer file '$FILE_PATH' to $SSH_USER@$SERVER_IP"
-fi
