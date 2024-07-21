@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
-# Connects to my alx ubuntu server.
 
-ssh -i ~/.ssh/school -o StrictHostKeyChecking=no ubuntu@54.83.139.223
+# Generate RSA key pair with 4096 bits, saving private key as 'school'
+ssh-keygen -t rsa -b 4096 -C "" -f school -N "betty" > /dev/null 2>&1
+
+# Check if private key 'school' exists and is of correct type
+if [[ -f "school" && $(file school) == *"OpenSSH private key"* ]]; then
+    echo "RSA key pair created successfully."
+else
+    echo "Failed to create RSA key pair."
+    exit 1
+fi
+
