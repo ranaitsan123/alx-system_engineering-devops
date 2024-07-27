@@ -14,5 +14,5 @@ if ! id -u "$USERNAME" > /dev/null 2>&1; then
     exit 1
 fi
 
-# Run the whoami command under the specified user
-sudo -u "$USERNAME" whoami
+# Run the whoami command under the specified user and handle potential issues
+sudo -u "$USERNAME" whoami 2>&1
