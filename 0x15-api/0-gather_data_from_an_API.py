@@ -18,6 +18,7 @@ The script outputs:
 import requests
 import sys
 
+
 def fetch_employee_data(employee_id):
     """
     Fetches employee data and their to-do list from the JSONPlaceholder API.
@@ -41,6 +42,7 @@ def fetch_employee_data(employee_id):
 
     return user, todos
 
+
 def print_employee_todo_progress(user, todos):
     """
     Prints the progress of the employee's to-do list.
@@ -60,6 +62,7 @@ def print_employee_todo_progress(user, todos):
     for task in completed:
         print("\t {}".format(task))
 
+
 def main():
     """
     Main function to handle command line arguments and process data.
@@ -67,7 +70,7 @@ def main():
     if len(sys.argv) != 2:
         print("Usage: {} <employee_id>".format(sys.argv[0]))
         return
-    
+
     try:
         emp_id = int(sys.argv[1])
     except ValueError:
@@ -79,6 +82,7 @@ def main():
         print_employee_todo_progress(user, todos)
     except Exception as e:
         print(str(e))
+
 
 if __name__ == "__main__":
     main()
