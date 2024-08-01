@@ -1,34 +1,5 @@
 #!/usr/bin/env bash
 # Script to configure Nginx to listen on port 80 and verify it serves content properly
 
-# Update package list and install Nginx
-apt-get update
-apt-get install -y nginx
-
-# Ensure Nginx is configured to listen on port 80
-sed -i '/listen 80;/s/# *//g' /etc/nginx/sites-available/default
-
-# Restart Nginx to apply changes
-systemctl restart nginx
-
-# Wait for Nginx to start (optional: depending on system startup time)
-sleep 2
-
-# Verify Nginx is listening on port 80 using ss
-nginx_check=$(ss -tuln | grep ':80 ')
-if [ -z "$nginx_check" ]; then
-    echo "Nginx is not listening on port 80"
-    exit 1
-fi
-
-# Test Nginx with curl and check for HTTP 200 OK
-http_status=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/)
-if [ "$http_status" -ne 200 ]; then
-    echo "Failed to get HTTP 200 from Nginx"
-    exit 1
-fi
-
-# Optionally, you can output a success message
-echo "Nginx is now listening on port 80 and returns HTTP 200 OK"
-
-exit 0
+cat /etc/nginx/sites-available/default > /etc/nginx/sites-enabled/default
+sudo service nginx restart
