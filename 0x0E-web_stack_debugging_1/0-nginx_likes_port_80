@@ -14,8 +14,8 @@ systemctl restart nginx
 # Wait for Nginx to start (optional: depending on system startup time)
 sleep 2
 
-# Verify Nginx is listening on port 80
-nginx_check=$(netstat -tuln | grep ':80')
+# Verify Nginx is listening on port 80 using ss
+nginx_check=$(ss -tuln | grep ':80 ')
 if [ -z "$nginx_check" ]; then
     echo "Nginx is not listening on port 80"
     exit 1
