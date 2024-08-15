@@ -12,13 +12,13 @@ def number_of_subscribers(subreddit):
     try:
         response = requests.get(url, headers=headers, allow_redirects=False)
         if response.status_code == 200:
-            results = response.json().get("data", {})
-            return results.get("subscribers", 0)
+            data = response.json().get("data", {})
+            return data.get("subscribers", 0)
         elif response.status_code == 302:
-            # Redirection means subreddit might not exist or redirect
+            # Handle redirects (likely invalid subreddit)
             return 0
         else:
-            # Other HTTP errors
+            # Handle other HTTP errors
             return 0
     except requests.exceptions.RequestException:
         # Handles all request-related exceptions
