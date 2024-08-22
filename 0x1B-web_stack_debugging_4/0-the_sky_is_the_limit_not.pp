@@ -1,12 +1,19 @@
-# Increase the ULIMIT of the default file
-file { '/etc/default/nginx':
-  ensure  => file,
-  content => "ulimit -n 4096",
+# This Puppet manifest configures Nginx to handle high traffic more effectively
+
+exec { 'fix--for-nginx':
+  command => 'service nginx reload',
+  path    => ['/usr/bin', '/bin'],
+  notify  => Service['nginx'],
 }
 
-# Restart Nginx
 service { 'nginx':
-  ensure     => 'running',
-  enable     => true,
-  subscribe  => File['/etc/default/nginx'],
+  ensure    => running,
+  enable    => true,
+  subscribe => File['/etc/nginx/nginx.conf'],
+}
+
+file { '/etc/nginx/nginx.conf':
+  ensure  => file,
+  content => template('nginx/nginx.conf.erb'),
+  notify  => Exec['fix--for-nginx'],
 }
