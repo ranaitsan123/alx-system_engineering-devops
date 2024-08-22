@@ -1,19 +1,6 @@
-# This Puppet manifest configures Nginx to handle high traffic more effectively
+# fix nginx to accept and serve more requests
 
-exec { 'fix--for-nginx':
-  command => 'service nginx reload',
-  path    => ['/usr/bin', '/bin'],
-  notify  => Service['nginx'],
-}
-
-service { 'nginx':
-  ensure    => running,
-  enable    => true,
-  subscribe => File['/etc/nginx/nginx.conf'],
-}
-
-file { '/etc/nginx/nginx.conf':
-  ensure  => file,
-  content => template('nginx/nginx.conf.erb'),
-  notify  => Exec['fix--for-nginx'],
+exec {'modify max open files limit setting':
+  command => 'sed -i "s/15/10000/" /etc/default/nginx && sudo service nginx restart',
+  path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games',
 }
