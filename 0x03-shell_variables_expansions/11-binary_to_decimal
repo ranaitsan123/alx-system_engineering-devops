@@ -1,3 +1,2 @@
 #!/bin/bash
-# Convert the binary number stored in BINARY to decimal and print
-echo "$((2#$BINARY))"
+echo $((2#$BINARY))

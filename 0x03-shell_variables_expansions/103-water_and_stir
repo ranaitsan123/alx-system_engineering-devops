@@ -1,3 +1,2 @@
 #!/bin/bash
-# Add WATER and STIR environment variables and print result (decimal addition)
 echo $((WATER + STIR))

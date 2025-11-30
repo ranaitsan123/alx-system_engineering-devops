@@ -1,3 +1,2 @@
 #!/bin/bash
-# Divide the environment variable POWER by DIVIDE and print the result
 echo $((POWER / DIVIDE))
