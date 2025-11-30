@@ -1,2 +1,3 @@
 #!/bin/bash
+# Create a new global variable BEST with value "School"
 export BEST="School"

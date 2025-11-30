@@ -1,2 +1,3 @@
 #!/bin/bash
-set | less
+# List all local variables, environment variables, and functions
+declare -p

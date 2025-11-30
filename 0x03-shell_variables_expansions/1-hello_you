@@ -1,2 +1,3 @@
 #!/bin/bash
-echo hello $USER
+# Print "hello" followed by the current Linux username
+echo "hello $USER"

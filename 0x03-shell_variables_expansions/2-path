@@ -1,2 +1,3 @@
 #!/bin/bash
+# Append /action to the PATH variable for executable lookup
 export PATH=$PATH:/action

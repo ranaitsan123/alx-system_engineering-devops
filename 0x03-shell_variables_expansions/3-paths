@@ -1,2 +1,3 @@
 #!/bin/bash
-echo $(printf $PATH | tr ":" "\n" | wc -w)
+# Count the number of directories in the PATH environment variable
+echo "$PATH" | tr ':' '\n' | grep -c .

@@ -1,2 +1,3 @@
 #!/bin/bash
+# Print the NUM environment variable with two decimal places
 printf "%.2f\n" $NUM

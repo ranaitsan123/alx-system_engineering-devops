@@ -1,2 +1,3 @@
 #!/bin/bash
-tr '[A-Za-z]' '[N-ZA-Mn-za-m]'
+# Encode or decode input text using ROT13 cipher
+tr 'A-Za-z' 'N-ZA-Mn-za-m'

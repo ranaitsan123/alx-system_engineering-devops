@@ -1,2 +1,3 @@
 #!/bin/bash
-printf '%x\n' $DECIMAL
+# Convert the DECIMAL environment variable from base 10 to hexadecimal
+printf "%x\n" $DECIMAL
