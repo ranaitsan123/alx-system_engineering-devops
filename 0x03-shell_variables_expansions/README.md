@@ -41,3 +41,27 @@ This project focuses on **Bash scripting**, **environment variables**, **local v
 
 ```bash
 chmod +x <script_name>
+````
+
+2. Run a script:
+
+```bash
+./<script_name>
+```
+
+3. For scripts that depend on environment variables, set them first:
+
+```bash
+export TRUEKNOWLEDGE=1209
+./8-true_knowledge
+
+export POWER=42784
+export DIVIDE=32
+./9-divide_and_rule
+```
+
+---
+
+**Author:** Your Name
+**Date:** 2025-11-30
+**ALX SE DevOps**
